@@ -1,0 +1,18 @@
+# Download Magento to this Directory
+
+You will need to download the latest version of Magento Cloud Edition, follow this link: https://github.com/magento/magento-cloud
+
+## Install Magento using Composer
+With your command line shell cd to your local directory where you've downloaded the Magento files to, under this same directory you will need to add the (autho.json) file, this file stores your private and public keys that allow us to download the software when we run the command
+
+Got to https://marketplace.magento.com/customer/accessKeys/ login with your Magento.com credentials, replace the access keys on the autho.json file with your accessKeys
+
+If your command shell is still in the clone’s directory, run the following command: 
+
+composer install
+
+This will download the files required for the install.  
+
+After your install run the following command to finalize the install: 
+
+php bin/magento setup:install  --admin-firstname=firstname  --admin-lastname=lastname --admin-email=email@somedomain.com --admin-user=admin --admin-password=Hello123 --base-url=http://localhost:8888/your-url/ --db-host=localhost --db-name=dbname --db-user=root --db-password=root --currency=USD --timezone=America/Chicago --language=en_US --use-rewrites=1

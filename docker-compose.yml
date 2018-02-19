@@ -1,0 +1,74 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./nginx
+    ports:
+     - 8000:80
+    volumes:
+    - ./magento2:/data/magento2/httpdocs
+    depends_on:
+    - mysql
+    - redis
+    - php-fpm
+    networks:
+    - magento
+  php-fpm:
+    build: ./php-fpm
+    ports:
+     - 9000:9000
+    volumes:
+    - ./magento2:/data/magento2/httpdocs
+    - ./php-fpm/php.ini:/etc/php.ini
+    depends_on:
+    - mysql
+    - redis
+    networks:
+    - magento
+  composer:
+    build: ./composer
+    volumes:
+    - ./magento2:/data/magento2/httpdocs
+    depends_on:
+     - mysql
+  redis:
+    image: 'redis:alpine'
+    ports:
+     - 6379:6379
+    networks:
+    - magento
+  mysql:
+    image: 'percona:5.7'
+    volumes:
+     - ./mysqldata:/var/lib/mysql
+     - ./percona/mysqld.cnf:/etc/mysql/percona-server.conf.d/mysqld.cnf
+    environment:
+      MYSQL_DATABASE: 'magentodb'
+      MYSQL_ROOT_PASSWORD: 'rootpass22@'
+      MYSQL_USER: 'magentou'
+      MYSQL_PASSWORD: 'KAUJSYNH*'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'false'
+    ports:
+      - 3308:3306
+    networks:
+    - magento
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+    restart: always
+    ports:
+     - 8080:80
+    volumes:
+     - /sessions
+    external_links:
+        - mysql
+    depends_on:
+    - mysql
+    - redis
+    networks:
+    - magento
+networks:
+  magento:
+    driver: bridge
