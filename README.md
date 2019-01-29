@@ -101,4 +101,7 @@ Proceed with the installation using the magento setup wizard.
 
 To improve the Docker performance when mapping volumes between containers and host, add NFS, Unison or dockersync.
 
-This helps if the website is loading slow on your machine.   
+This helps if the website is loading slow on your machine.  
+
+## Feature Updates
+... 
