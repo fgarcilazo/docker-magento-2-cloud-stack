@@ -1,4 +1,4 @@
-# Dynojet Magento Custom Magento 2.2.2 EE Docker Stack
+# Magento Custom Magento 2.2.2 EE Docker Stack
 
 The docker stack is composed of the following containers
 - Centos 7 latest
